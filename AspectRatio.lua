@@ -50,6 +50,7 @@ function AspectRatio.processPhotos(photos)
                                         functionContext = context
                                     })
                             AspectRatio.setAspectRatioOnPhoto(photo)
+                            subProgress:done()
                         end, {
                             timeout = ApplyAspectRatio.timeout,
                             callback = function()
