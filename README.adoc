@@ -1,0 +1,17 @@
+= ASPECT-RATIO-FILTER.LRPLUGIN
+
+This is a simple Lightroom Plugin which enables Adobe Lightroom to filter based on the aspect ratio of the photos. Basically the plugin just adds a custom metadata field - which is searchable - to all images and sets the value to the already existing aspect ration read from the metadata of the photo. When doing this the numeric aspect ratio is translated into a textual aspect ratio (e.g. 2:3). Additionally there is currenlty one function which can be used to reset the aspect ratio custom metadata via library action (Library -> Plugin Extras -> Aspect Ratio Filter) on all currently viewed photos.
+
+== TODO
+
+. Verify that the cropped ratio is used instead the ratio from the original file
+. Add Progressbar
+. Add possibility to reset aspect ratio on all catalog files
+
+== Useful links
+
+. link:https://www.adobe.io/apis/creativecloud/lightroomclassic.html[Lightroom SDK (Documention, Tutorials, API Spec, Examples)]
+. link:https://feedback.photoshop.com/topics/lightroom-classic/5f5f2093785c1f1e6cc40872[Lightroom classic forum]
+. link:https://www.lua.org/manual/5.4/[Lua reference manual]
+. link:http://lua-users.org/wiki/[Lua wiki with lots of samples]
+
