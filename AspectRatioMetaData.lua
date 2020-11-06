@@ -1,8 +1,8 @@
-local logger = import 'LrLogger'('AspectRatioFilterUpdate')
-logger:enable("logfile")
-
 require "PluginInit"
-require "RatioMapping"
+require "Logger"
+require "AspectRatioMapping"
+require "AspectRatio"
+require "TableHelper"
 
 return {
 
@@ -17,7 +17,7 @@ return {
         }
     },
 
-    schemaVersion = 16, -- must be a number, preferably a positive integer
+    schemaVersion = 17, -- must be a number, preferably a positive integer
 
     updateFromEarlierSchemaVersion = function(catalog, previousSchemaVersion)
 
@@ -29,6 +29,7 @@ return {
         logger:trace('previousSchemaVersion '..tostring(previousSchemaVersion))
         local photosToMigrate = {}
         if previousSchemaVersion then
+          logger:trace('Find photos to migrate.')
             photosToMigrate = catalog:findPhotosWithProperty(
                                   PluginInit.pluginID, 'aspectRatio',
                                   previousSchemaVersion)
@@ -36,21 +37,10 @@ return {
             logger:trace('Getting all photos from catalog for initialization.')
             photosToMigrate = catalog:getAllPhotos()
         end
+        logger:info('Set aspect ratio for '..tostring(getTableSize(photosToMigrate)..' photos.'))
 
         for _, photo in ipairs(photosToMigrate) do
-            -- local currentAsprectRatio = photo:getPropertyForPlugin(PluginInit.pluginID, 'aspectRatio')
-            logger:trace('AspectRatio from Metadata: ',
-                         photo:getRawMetadata('aspectRatio'))
-
-            local stringAspectRatio = getRatioMapping(photo:getRawMetadata('aspectRatio'))
-
-            if stringAspectRatio == nil then
-                stringAspectRatio = 'unkown'
-            end
-
-            logger:trace('AspectRatio for Filter: ', stringAspectRatio)
-
-            photo:setPropertyForPlugin(_PLUGIN, 'aspectRatio', stringAspectRatio)
+          AspectRatio.setAspectRatioOnPhoto(photo)
         end
     end
 

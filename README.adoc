@@ -1,12 +1,24 @@
 = ASPECT-RATIO-FILTER.LRPLUGIN
 
-This is a simple Lightroom Plugin which enables Adobe Lightroom to filter based on the aspect ratio of the photos. Basically the plugin just adds a custom metadata field - which is searchable - to all images and sets the value to the already existing aspect ration read from the metadata of the photo. When doing this the numeric aspect ratio is translated into a textual aspect ratio (e.g. 2:3). Additionally there is currenlty one function which can be used to reset the aspect ratio custom metadata via library action (Library -> Plugin Extras -> Aspect Ratio Filter) on all currently viewed photos.
+This is a simple Lightroom Plugin which enables Adobe Lightroom to filter based on the aspect ratio of the photos. Basically the plugin just adds a custom metadata field - which is searchable - to all images and sets the value to the already existing aspect ration read from the metadata of the photo. When doing this the numeric aspect ratio is translated into a textual aspect ratio (e.g. 2:3). Additionally there the following options available to to reset the aspect ratio custom metadata via library action (Library -> Plugin Extras -> Aspect Ratio Filter)
+
+Aspect Ratio Filter (current photos):: Aspect Ratio will be reset on all photos in the film strip or the selected photos.
+
+Aspect Ratio Filter (all photos):: Aspect Ratio will be reset on all photos in the catalog.
+
+== Versioning
+
+This plugin follows link:https://semver.org/[Semantic Versioning 2.0.0]!
+
+== Usage
+
+Just download a release bundle or clone this repository to a location of your choice and add it via File -> Plugin Manager to Adobe Lightroom. When you add the plugin the first time, it will automatically update all of your pictures in the catalog with the custom aspect ratio metadata.
 
 == TODO
 
 . Verify that the cropped ratio is used instead the ratio from the original file
 . Add Progressbar
-. Add possibility to reset aspect ratio on all catalog files
+. Maybe add the possibility to view the Metadata in a custom TagSet
 
 == Useful links
 
@@ -15,3 +27,4 @@ This is a simple Lightroom Plugin which enables Adobe Lightroom to filter based 
 . link:https://www.lua.org/manual/5.4/[Lua reference manual]
 . link:http://lua-users.org/wiki/[Lua wiki with lots of samples]
 
+n
