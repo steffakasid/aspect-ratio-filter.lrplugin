@@ -34,8 +34,7 @@ IMPORTANT: You must restart Adobe Lightroom for initialisation and changes on th
 
 == TODO
 
-. Verify that the cropped ratio is used instead the ratio from the original file
-. Add Progressbar
+. Strange error when using LrProgressScope
 . Maybe add the possibility to view the Metadata in a custom TagSet
 
 == Useful links

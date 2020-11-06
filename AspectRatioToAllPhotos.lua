@@ -1,7 +1,7 @@
-local catalog = import'LrApplication'.activeCatalog()
-local dialogs = import 'LrDialogs'
-local selection = import 'LrSelection'
-local tasks = import 'LrTasks'
+local LrCatalog = import'LrApplication'.activeCatalog()
+local LrTasks = import 'LrTasks'
+local LrProgressScope = import 'LrProgressScope'
+local LrFunctionContext = import 'LrFunctionContext'
 
 require 'AspectRatio'
 require 'AspectRatioMapping'
@@ -12,18 +12,44 @@ ApplyAspectRatio = {timeout = 30}
 
 function ApplyAspectRatio.processTargetPhotos()
     logger:info("Reset aspect ratio on all photos")
+    local parentProgressScope = LrProgressScope(
+                                    {title = 'Reset aspect ratio on all photos'})
+    parentProgressScope:attachToFunctionContext(
+        LrFunctionContext.callWithContext(
+            'AspectRatioFilter.applyMetadataToAllPhotos', function(context)
+                local i = 0
+                local allPhotosLength = getTableSize(LrCatalog:getAllPhotos())
+                for _, photo in ipairs(LrCatalog:getAllPhotos()) do
 
-    for _, photo in ipairs(catalog:getAllPhotos()) do
-        catalog:withWriteAccessDo('Assign AspectRatio to target photos',
-                                  function()
-            AspectRatio.setAspectRatioOnPhoto(photo)
-        end, {
-            timeout = ApplyAspectRatio.timeout,
-            callback = function()
-                logger:trace('Task timeout after ' .. ApplyAspectRatio.timeout)
-            end
-        })
-    end
+                  if parentProgressScope:isCanceled() then break end
+
+                    LrCatalog:withWriteAccessDo(
+                        'Assign AspectRatio to target photos',
+                        function(context)
+                          logger:debug('Percent done '..tostring(i / allPhotosLength))
+                            local subProgress =
+                                LrProgressScope(
+                                    {
+                                        parent = parentProgressScope,
+                                        parentEndRange = i / allPhotosLength,
+                                        caption = photo:getFormattedMetadata(
+                                            'fileName'),
+                                        functionContext = context
+                                    })
+                            AspectRatio.setAspectRatioOnPhoto(photo)
+                        end, {
+                            timeout = ApplyAspectRatio.timeout,
+                            callback = function()
+                                logger:trace(
+                                    'Task timeout after ' ..
+                                        ApplyAspectRatio.timeout)
+                            end
+                        })
+                    i = i + 1
+                end
+                parentProgressScope:done()
+            end))
+            logger:debug("I'm done!")
 end
 
-tasks.startAsyncTask(ApplyAspectRatio.processTargetPhotos)
+LrTasks.startAsyncTask(ApplyAspectRatio.processTargetPhotos)
