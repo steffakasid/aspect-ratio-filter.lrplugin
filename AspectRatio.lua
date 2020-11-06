@@ -20,7 +20,7 @@ end
 
 function AspectRatio.processPhotos(photos)
     local parentProgressScope = LrProgressScope(
-                                    {title = 'Reset aspect ratio on all photos'})
+                                    {title = 'Reset aspect ratio metadata on photos'})
     parentProgressScope:attachToFunctionContext(
         LrFunctionContext.callWithContext(
             'AspectRatioFilter.applyMetadataToAllPhotos', function(context)
@@ -36,7 +36,7 @@ function AspectRatio.processPhotos(photos)
                     end
 
                     LrCatalog:withWriteAccessDo(
-                        'Assign AspectRatio to target photos',
+                        'Reset aspect ratio metadata on photos',
                         function(context)
                             logger:debug(
                                 'Percent done ' .. tostring(i / allPhotosLength))
