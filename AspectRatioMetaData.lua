@@ -26,7 +26,7 @@ return {
             "AspectRatioMetaData.updateFromEarlierSchemaVersion")
 
         -- Retrieve photos that have been used already with the custom metadata.
-        logger:trace('previousSchemaVersion '..previousSchemaVersion)
+        logger:trace('previousSchemaVersion '..tostring(previousSchemaVersion))
         local photosToMigrate = {}
         if previousSchemaVersion then
             photosToMigrate = catalog:findPhotosWithProperty(
