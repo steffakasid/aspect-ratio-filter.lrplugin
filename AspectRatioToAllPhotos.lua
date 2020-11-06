@@ -12,14 +12,15 @@ ApplyAspectRatio = {timeout = 30}
 
 function ApplyAspectRatio.processTargetPhotos()
     logger:info("Reset aspect ratio on all photos")
+    local allPhotos = LrCatalog:getAllPhotos()
     local parentProgressScope = LrProgressScope(
                                     {title = 'Reset aspect ratio on all photos'})
     parentProgressScope:attachToFunctionContext(
         LrFunctionContext.callWithContext(
             'AspectRatioFilter.applyMetadataToAllPhotos', function(context)
                 local i = 0
-                local allPhotosLength = getTableSize(LrCatalog:getAllPhotos())
-                for _, photo in ipairs(LrCatalog:getAllPhotos()) do
+                local allPhotosLength = getTableSize(allPhotos)
+                for _, photo in ipairs(allPhotos) do
 
                   if parentProgressScope:isCanceled() then break end
 
