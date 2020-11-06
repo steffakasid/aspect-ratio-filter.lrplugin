@@ -28,6 +28,9 @@ function AspectRatio.processPhotos(photos)
                 local allPhotosLength = getTableSize(photos)
                 for _, photo in ipairs(photos) do
 
+                    logger:debug('Processing ' ..
+                                     photo:getFormattedMetadata('fileName'))
+
                     if parentProgressScope:isCanceled() then
                         break
                     end
