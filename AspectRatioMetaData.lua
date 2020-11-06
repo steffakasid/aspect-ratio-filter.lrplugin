@@ -26,15 +26,15 @@ return {
             "AspectRatioMetaData.updateFromEarlierSchemaVersion")
 
         -- Retrieve photos that have been used already with the custom metadata.
-        logger:trace('previousSchemaVersion '..tostring(previousSchemaVersion))
+        logger:debug('previousSchemaVersion '..tostring(previousSchemaVersion))
         local photosToMigrate = {}
         if previousSchemaVersion then
-          logger:trace('Find photos to migrate.')
+          logger:debug('Find photos to migrate.')
             photosToMigrate = catalog:findPhotosWithProperty(
                                   PluginInit.pluginID, 'aspectRatio',
                                   previousSchemaVersion)
         else
-            logger:trace('Getting all photos from catalog for initialization.')
+            logger:debug('Getting all photos from catalog for initialization.')
             photosToMigrate = catalog:getAllPhotos()
         end
         logger:info('Set aspect ratio for '..tostring(getTableSize(photosToMigrate)..' photos.'))

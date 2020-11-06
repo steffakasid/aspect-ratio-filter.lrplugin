@@ -1,9 +1,10 @@
 require 'MathRound'
+require "Logger"
 
 ratioMapping = {
     ['0.5'] = '9:16',
     ['0.6'] = '2:3',
-    ['0.7'] = '3:4',
+    ['0.8'] = '3:4',
     ['1'] = '1:1',
     ['1.3'] = '4:3',
     ['1.5'] = '3:2',
@@ -12,5 +13,11 @@ ratioMapping = {
 }
 
 function getRatioMapping(nummericAspectRatio)
-    return ratioMapping[tostring(round(nummericAspectRatio, 1))]
+  local roundedNummericRatio = round(nummericAspectRatio, 1)
+  logger:debug('Rounder nummeric ratio '..roundedNummericRatio)
+  local mappedRatio = ratioMapping[tostring(roundedNummericRatio)]
+
+  if mappedRatio == nil then mappedRatio = 'unkown' end
+
+    return mappedRatio
 end

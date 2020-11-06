@@ -11,7 +11,7 @@ require 'TableHelper'
 ApplyAspectRatio = {timeout = 30}
 
 function ApplyAspectRatio.processTargetPhotos()
-    logger:trace("Reset aspect ratio on all photos")
+    logger:info("Reset aspect ratio on all photos")
 
     for _, photo in ipairs(catalog:getAllPhotos()) do
         catalog:withWriteAccessDo('Assign AspectRatio to target photos',
@@ -20,7 +20,7 @@ function ApplyAspectRatio.processTargetPhotos()
         end, {
             timeout = ApplyAspectRatio.timeout,
             callback = function()
-                logger:info('Task timeout after ' .. ApplyAspectRatio.timeout)
+                logger:trace('Task timeout after ' .. ApplyAspectRatio.timeout)
             end
         })
     end

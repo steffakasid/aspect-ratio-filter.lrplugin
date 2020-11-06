@@ -14,6 +14,24 @@ This plugin follows link:https://semver.org/[Semantic Versioning 2.0.0]!
 
 Just download a release bundle or clone this repository to a location of your choice and add it via File -> Plugin Manager to Adobe Lightroom. When you add the plugin the first time, it will automatically update all of your pictures in the catalog with the custom aspect ratio metadata.
 
+== Logging and Debug Infomation
+
+If you want to enable logging create a config.lua file in:
+windows:: C:\Users\${USERNAME}\AppData\Roaming\Adobe\Lightroom
+mac:: ${HOME}/Library/Application Support/Adobe/Lightroom/config.lua
+
+This file must have the following contents:
+[source,lua]
+----
+include::./config.lua[]
+----
+
+Logfiles are then placed in:
+windows:: C:\Users\${USERNAME}\Documents\LrClassicLogs\AspectRatioFilter.log
+mac:: ${HOME}/Documents/LrClassicLogs/AspectRatioFilter.log
+
+IMPORTANT: You must restart Adobe Lightroom for initialisation and changes on that file.
+
 == TODO
 
 . Verify that the cropped ratio is used instead the ratio from the original file
