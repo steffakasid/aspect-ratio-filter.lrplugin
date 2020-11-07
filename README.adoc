@@ -17,6 +17,7 @@ Just download a release bundle or clone this repository to a location of your ch
 == Logging and Debug Infomation
 
 If you want to enable logging create a config.lua file in:
+
 windows:: C:\Users\${USERNAME}\AppData\Roaming\Adobe\Lightroom
 mac:: ${HOME}/Library/Application Support/Adobe/Lightroom/config.lua
 
@@ -27,6 +28,7 @@ include::./config.lua[]
 ----
 
 Logfiles are then placed in:
+
 windows:: C:\Users\${USERNAME}\Documents\LrClassicLogs\AspectRatioFilter.log
 mac:: ${HOME}/Documents/LrClassicLogs/AspectRatioFilter.log
 
